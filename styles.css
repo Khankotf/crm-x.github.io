@@ -2541,3 +2541,361 @@ input:disabled {
     min-width: 0;
   }
 }
+
+@media (min-width: 1440px) {
+  .crm-layout {
+    width: min(100% - 72px, 1680px);
+  }
+
+  .record-dialog.object-record-dialog {
+    width: min(1180px, calc(100% - 56px));
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .app-header {
+    grid-template-columns: minmax(130px, auto) minmax(0, 1fr) minmax(220px, auto);
+    gap: 12px;
+    padding-inline: 18px;
+  }
+
+  .top-nav {
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .top-nav a {
+    padding-inline: 9px;
+    font-size: 0.88rem;
+  }
+
+  .crm-layout {
+    width: min(100% - 32px, 1280px);
+  }
+
+  .dashboard-grid {
+    gap: 12px;
+  }
+
+  .object-record-dialog .record-card-form {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .app-header {
+    grid-template-columns: minmax(140px, auto) minmax(0, 1fr);
+    align-items: start;
+    padding: 10px 16px;
+  }
+
+  .brand {
+    grid-column: 1;
+  }
+
+  .header-actions {
+    grid-column: 2;
+  }
+
+  .top-nav {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+  }
+
+  .top-nav a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .crm-layout {
+    width: min(100% - 28px, 980px);
+    padding-bottom: 34px;
+  }
+
+  .screen {
+    padding-top: 24px;
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-card,
+  .dashboard-panel,
+  .dashboard-widget.size-sm,
+  .dashboard-widget.size-md,
+  .dashboard-widget.size-lg,
+  .dashboard-panel.dashboard-widget.size-sm,
+  .dashboard-panel.dashboard-widget.size-md,
+  .dashboard-panel.dashboard-widget.size-lg {
+    grid-column: span 1;
+  }
+
+  .dashboard-panel.wide,
+  .dashboard-reports {
+    grid-column: 1 / -1;
+  }
+
+  .record-dialog,
+  .record-dialog.object-record-dialog {
+    width: min(94vw, 920px);
+  }
+
+  .dialog-card {
+    max-height: min(86vh, 980px);
+    overflow-y: auto;
+  }
+
+  .kanban {
+    grid-template-columns: repeat(3, minmax(230px, 1fr));
+  }
+
+  .kanban-column {
+    min-width: 230px;
+  }
+}
+
+@media (max-width: 760px) {
+  .table-scroll {
+    overflow: visible;
+  }
+
+  .data-table {
+    min-width: 0;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+  }
+
+  .data-table thead {
+    display: none;
+  }
+
+  .data-table tbody,
+  .data-table tr,
+  .data-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .data-table tr {
+    padding: 10px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+
+  .data-table td {
+    display: grid;
+    grid-template-columns: minmax(92px, 0.42fr) minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 8px 0;
+    border-bottom: 1px solid #eef2f6;
+  }
+
+  .data-table td:last-child {
+    border-bottom: 0;
+  }
+
+  .data-table td::before {
+    content: attr(data-cell-heading);
+    min-width: 0;
+    color: var(--muted);
+    font-size: 0.74rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .data-table td[data-cell-heading=""] {
+    display: inline-flex;
+    width: auto;
+    margin-right: 8px;
+    padding: 0;
+    border-bottom: 0;
+  }
+
+  .data-table td[data-cell-heading=""]::before {
+    content: "";
+    display: none;
+  }
+
+  .list-check-cell,
+  .list-info-cell {
+    min-width: 0;
+    width: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    background: var(--soft);
+  }
+
+  .app-header {
+    position: sticky;
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+    padding: 10px 12px;
+  }
+
+  .brand,
+  .app-header > .button,
+  .header-actions {
+    justify-self: stretch;
+  }
+
+  .brand {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .header-actions,
+  .session-bar {
+    justify-content: center;
+  }
+
+  .top-nav {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 2px 0 4px;
+    scrollbar-width: none;
+  }
+
+  .top-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .top-nav a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .crm-layout {
+    width: min(100% - 18px, 1480px);
+  }
+
+  .workspace-head,
+  .screen-head {
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-size: 1.78rem;
+  }
+
+  h2 {
+    font-size: 1.28rem;
+  }
+
+  .dashboard-card,
+  .dashboard-panel,
+  .report-card,
+  .products-panel,
+  .cabinet-panel,
+  .record-section,
+  .deal-items-panel {
+    padding: 12px;
+  }
+
+  .record-dialog,
+  .record-dialog.object-record-dialog {
+    width: calc(100vw - 12px);
+    max-width: calc(100vw - 12px);
+    max-height: calc(100dvh - 12px);
+  }
+
+  .dialog-card,
+  .object-record-dialog .dialog-card {
+    max-height: calc(100dvh - 12px);
+    padding: 12px;
+    overflow-y: auto;
+  }
+
+  .record-hero {
+    padding: 12px;
+  }
+
+  .record-hero h2 {
+    font-size: 1.05rem;
+  }
+
+  .record-hero-meta span {
+    width: 100%;
+  }
+
+  .record-section-title,
+  .section-head,
+  .dialog-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card-actions,
+  .record-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .card-actions .button,
+  .record-actions .button,
+  .list-toolbar-main,
+  .list-toolbar-pages,
+  .list-toolbar-main .button,
+  .list-toolbar-pages select {
+    width: 100%;
+  }
+
+  .list-toolbar-main,
+  .list-toolbar-pages {
+    align-items: stretch;
+  }
+
+  .condition-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .relation-link {
+    padding: 9px;
+  }
+}
+
+@media (max-width: 420px) {
+  .period-switch {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .period-switch button {
+    width: 100%;
+  }
+
+  .dashboard-row,
+  .source-list button {
+    grid-template-columns: 1fr;
+  }
+
+  .data-table td {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .user-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
