@@ -1,6 +1,22 @@
 const storageKey = "pulse-crm-state-v3";
 const customReportsKey = "pulse-crm-custom-reports";
 const authUserKey = "pulse-crm-auth-user";
+const activeUserKey = "pulse-crm-active-user";
+const conditionBuildersKey = "pulse-crm-condition-builders";
+const listSettingsKey = "pulse-crm-list-settings";
+const dashboardReportsKey = "pulse-crm-dashboard-reports";
+const dashboardReportLayoutsKey = "pulse-crm-dashboard-report-layouts";
+const dashboardWidgetOrderKey = "pulse-crm-dashboard-widget-order";
+const dashboardWidgetLayoutsKey = "pulse-crm-dashboard-widget-layouts";
+
+const crmStorage = window.crmStorage;
+const crmDataAdapter = window.crmDataAdapter;
+if (!crmStorage) {
+  throw new Error("CRM-X storage layer is not loaded. Check src/storage.js script order in index.html.");
+}
+if (!crmDataAdapter) {
+  throw new Error("CRM-X data adapter is not loaded. Check src/data-adapter.js script order in index.html.");
+}
 
 const dealStatuses = [
   { id: "new", label: "Новые", className: "new" },
@@ -3634,15 +3650,11 @@ function loadConditionBuilders() {
     companies: defaultConditionBuilder(),
   };
 
-  try {
-    return { ...defaults, ...JSON.parse(localStorage.getItem("pulse-crm-condition-builders")) };
-  } catch {
-    return defaults;
-  }
+  return { ...defaults, ...crmStorage.getJson(conditionBuildersKey, {}) };
 }
 
 function saveConditionBuilders() {
-  localStorage.setItem("pulse-crm-condition-builders", JSON.stringify(conditionBuilders));
+  crmStorage.setJson(conditionBuildersKey, conditionBuilders);
 }
 
 function defaultListSetting(tableId) {
@@ -3666,16 +3678,11 @@ function loadListSettings() {
     contacts: defaultListSetting("contacts"),
     companies: defaultListSetting("companies"),
   };
-  try {
-    const saved = JSON.parse(localStorage.getItem("pulse-crm-list-settings"));
-    return { ...defaults, ...saved };
-  } catch {
-    return defaults;
-  }
+  return { ...defaults, ...crmStorage.getJson(listSettingsKey, {}) };
 }
 
 function saveListSettings() {
-  localStorage.setItem("pulse-crm-list-settings", JSON.stringify(listSettings));
+  crmStorage.setJson(listSettingsKey, listSettings);
 }
 
 function getFilters(tableId) {
@@ -6103,112 +6110,84 @@ function defaultSalesPlans() {
 }
 
 function loadDashboardReports() {
-  try {
-    const saved = JSON.parse(localStorage.getItem("pulse-crm-dashboard-reports"));
-    if (Array.isArray(saved)) return saved.filter((id) => reportTypes.some((report) => report.id === id) || customReports.some((report) => `custom:${report.id}` === id));
-  } catch {
-  }
+  const saved = crmStorage.getJson(dashboardReportsKey, null);
+  if (Array.isArray(saved)) return saved.filter((id) => reportTypes.some((report) => report.id === id) || customReports.some((report) => `custom:${report.id}` === id));
   return ["salesFunnel", "revenuePlan", "productSales"];
 }
 
 function saveDashboardReports() {
-  localStorage.setItem("pulse-crm-dashboard-reports", JSON.stringify(dashboardReportIds));
+  crmStorage.setJson(dashboardReportsKey, dashboardReportIds);
 }
 
 function loadDashboardReportLayouts() {
-  try {
-    const saved = JSON.parse(localStorage.getItem("pulse-crm-dashboard-report-layouts"));
-    if (saved && typeof saved === "object") return saved;
-  } catch {
-  }
-  return {};
+  const saved = crmStorage.getJson(dashboardReportLayoutsKey, null);
+  return saved && typeof saved === "object" ? saved : {};
 }
 
 function saveDashboardReportLayouts() {
-  localStorage.setItem("pulse-crm-dashboard-report-layouts", JSON.stringify(dashboardReportLayouts));
+  crmStorage.setJson(dashboardReportLayoutsKey, dashboardReportLayouts);
 }
 
 function loadDashboardWidgetOrder() {
-  try {
-    const saved = JSON.parse(localStorage.getItem("pulse-crm-dashboard-widget-order"));
-    if (Array.isArray(saved)) return saved.filter((id) => dashboardWidgetIds().includes(id));
-  } catch {
-  }
+  const saved = crmStorage.getJson(dashboardWidgetOrderKey, null);
+  if (Array.isArray(saved)) return saved.filter((id) => dashboardWidgetIds().includes(id));
   return dashboardWidgetIds();
 }
 
 function saveDashboardWidgetOrder() {
-  localStorage.setItem("pulse-crm-dashboard-widget-order", JSON.stringify(dashboardWidgetOrder));
+  crmStorage.setJson(dashboardWidgetOrderKey, dashboardWidgetOrder);
 }
 
 function loadDashboardWidgetLayouts() {
-  try {
-    const saved = JSON.parse(localStorage.getItem("pulse-crm-dashboard-widget-layouts"));
-    if (saved && typeof saved === "object") return saved;
-  } catch {
-  }
-  return {};
+  const saved = crmStorage.getJson(dashboardWidgetLayoutsKey, null);
+  return saved && typeof saved === "object" ? saved : {};
 }
 
 function saveDashboardWidgetLayouts() {
-  localStorage.setItem("pulse-crm-dashboard-widget-layouts", JSON.stringify(dashboardWidgetLayouts));
+  crmStorage.setJson(dashboardWidgetLayoutsKey, dashboardWidgetLayouts);
 }
 
 function loadCustomReports() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(customReportsKey));
-    if (Array.isArray(saved)) return saved.map((report) => normalizeReportDefinition(report));
-  } catch {
-  }
+  const saved = crmStorage.getJson(customReportsKey, []);
+  if (Array.isArray(saved)) return saved.map((report) => normalizeReportDefinition(report));
   return [];
 }
 
 function saveCustomReports() {
-  localStorage.setItem(customReportsKey, JSON.stringify(customReports));
+  crmStorage.setJson(customReportsKey, customReports);
 }
 
 function loadState() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(storageKey));
-    if (saved && Array.isArray(saved.companies) && Array.isArray(saved.contacts) && Array.isArray(saved.leads) && Array.isArray(saved.deals)) {
-      return saved;
-    }
-  } catch {
+  const saved = crmDataAdapter.localState.loadState(storageKey, null);
+  if (saved && Array.isArray(saved.companies) && Array.isArray(saved.contacts) && Array.isArray(saved.leads) && Array.isArray(saved.deals)) {
+    return saved;
   }
 
   return demoState();
 }
 
 function saveState() {
-  localStorage.setItem(storageKey, JSON.stringify(state));
+  crmDataAdapter.localState.saveState(storageKey, state);
 }
 
 function loadActiveUserId() {
-  try {
-    return localStorage.getItem("pulse-crm-active-user") || "";
-  } catch {
-    return "";
-  }
+  return crmStorage.getText(activeUserKey);
 }
 
 function saveActiveUserId() {
-  localStorage.setItem("pulse-crm-active-user", activeUserId);
+  crmStorage.setText(activeUserKey, activeUserId);
 }
 
 function loadAuthenticatedUserId() {
-  try {
-    return localStorage.getItem(authUserKey) || "";
-  } catch {
-    return "";
-  }
+  return crmStorage.getText(authUserKey);
 }
 
 function saveAuthenticatedUserId() {
   if (authenticatedUserId) {
-    localStorage.setItem(authUserKey, authenticatedUserId);
+    crmStorage.setText(authUserKey, authenticatedUserId);
     return;
   }
-  localStorage.removeItem(authUserKey);
+  crmStorage.remove(authUserKey);
 }
 
 function formObject(form) {
