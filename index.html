@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM-X</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body class="auth-pending">
+  <section class="login-screen" data-auth-screen>
+    <form class="login-card" data-login-form>
+      <div>
+        <p class="eyebrow">CRM-X</p>
+        <h1>Вход в личный кабинет</h1>
+      </div>
+      <label>
+        Логин
+        <input name="login" autocomplete="username" required placeholder="alina">
+      </label>
+      <label>
+        Пароль
+        <input name="password" type="password" autocomplete="current-password" required placeholder="123456">
+      </label>
+      <button class="button primary" type="submit">Войти</button>
+      <p class="form-note" data-login-note></p>
+      <div class="demo-credentials">
+        <span>Демо-доступы:</span>
+        <b>vip / 123456</b>
+        <b>leader / 123456</b>
+        <b>alina / 123456</b>
+      </div>
+    </form>
+  </section>
+
+  <header class="app-header">
+    <a class="brand" href="#dashboard" aria-label="CRM-X">
+      <span class="brand-mark">X</span>
+      <span>CRM-X</span>
+    </a>
+    <nav class="top-nav" aria-label="Разделы CRM">
+      <a href="#dashboard" data-nav="dashboard">Дашборд</a>
+      <a href="#deals" data-nav="deals">Сделки</a>
+      <a href="#kanban" data-nav="kanban">Канбан</a>
+      <a href="#leads" data-nav="leads">Лиды</a>
+      <a href="#tasks" data-nav="tasks">Задачи</a>
+      <a href="#contacts" data-nav="contacts">Контакты</a>
+      <a href="#companies" data-nav="companies">Компании</a>
+      <a href="#products" data-nav="products">Продукты</a>
+      <a href="#cabinet" data-nav="cabinet">Кабинет</a>
+      <a href="#reports" data-nav="reports">Отчеты</a>
+      <a href="#mail" data-nav="mail">Почта</a>
+    </nav>
+    <div class="header-actions">
+      <div class="session-bar" data-session-bar></div>
+      <button class="button light compact" type="button" data-reset-demo title="Сбросить CRM к демонстрационным данным">Сбросить демо</button>
+    </div>
+  </header>
+
+  <main class="crm-layout">
+    <section class="screen active" data-screen="dashboard">
+      <div class="workspace-head">
+        <div>
+          <p class="eyebrow">Главный экран</p>
+          <h1>Дашборд продаж</h1>
+        </div>
+        <div class="period-switch" data-period-switch>
+          <button type="button" data-period="day">День</button>
+          <button type="button" data-period="week" class="active">Неделя</button>
+          <button type="button" data-period="month">Месяц</button>
+          <button type="button" data-period="quarter">Квартал</button>
+          <button type="button" data-period="year">Год</button>
+        </div>
+      </div>
+      <div class="dashboard-grid" data-dashboard></div>
+    </section>
+
+    <section class="screen" data-screen="deals">
+      <div class="screen-head">
+        <div>
+          <p class="eyebrow">Таблица</p>
+          <h1>Сделки</h1>
+        </div>
+        <button class="button primary" type="button" data-open-create="deal">Новая сделка</button>
+      </div>
+      <div class="table-screen" data-table-screen="deals"></div>
+    </section>
+
+    <section class="screen" data-screen="kanban">
+      <div class="screen-head">
+        <div>
+          <p class="eyebrow">Доски</p>
+          <h1>Канбан</h1>
+        </div>
+        <div class="period-switch kanban-switch">
+          <button type="button" data-kanban-board="deals">Сделки</button>
+          <button type="button" data-kanban-board="leads">Лиды</button>
+          <button type="button" data-kanban-board="tasks">Задачи</button>
+        </div>
+      </div>
+      <div class="kanban" data-kanban></div>
+    </section>
+
+    <section class="screen" data-screen="leads">
+      <div class="screen-head">
+        <div>
+          <p class="eyebrow">Таблица</p>
+          <h1>Лиды</h1>
+        </div>
+        <button class="button primary" type="button" data-open-create="lead">Новый лид</button>
+      </div>
+      <div class="table-screen" data-table-screen="leads"></div>
+    </section>
+
+    <section class="screen" data-screen="tasks">
+      <div class="screen-head">
+        <div>
+          <p class="eyebrow">Таблица</p>
+          <h1>Задачи</h1>
+        </div>
+        <button class="button primary" type="button" data-open-create="task">Новая задача</button>
+      </div>
+      <div class="table-screen" data-table-screen="tasks"></div>
+    </section>
+
+    <section class="screen" data-screen="contacts">
+      <div class="screen-head">
+        <div>
+          <p class="eyebrow">Таблица</p>
+          <h1>Контакты</h1>
+        </div>
+        <button class="button primary" type="button" data-open-create="contact">Новый контакт</button>
+      </div>
+      <div class="table-screen" data-table-screen="contacts"></div>
+    </section>
+
+    <section class="screen" data-screen="companies">
+      <div class="screen-head">
+        <div>
+          <p class="eyebrow">Таблица</p>
+          <h1>Компании</h1>
+        </div>
+        <button class="button primary" type="button" data-open-create="company">Новый клиент</button>
+      </div>
+      <div class="table-screen" data-table-screen="companies"></div>
+    </section>
+
+    <section class="screen" data-screen="products">
+      <div class="screen-head">
+        <div>
+          <p class="eyebrow">Склад</p>
+          <h1>Продукты и партии</h1>
+        </div>
+      </div>
+      <div data-products></div>
+    </section>
+
+    <section class="screen" data-screen="cabinet">
+      <div class="screen-head">
+        <div>
+          <p class="eyebrow">Управление</p>
+          <h1>Кабинет руководителя</h1>
+        </div>
+      </div>
+      <div data-cabinet></div>
+    </section>
+
+    <section class="screen" data-screen="reports">
+      <div class="screen-head">
+        <div>
+          <p class="eyebrow">Аналитика</p>
+          <h1>Конструктор отчетов</h1>
+        </div>
+      </div>
+      <div class="reports-layout">
+        <aside class="reports-sidebar" data-report-list></aside>
+        <section class="report-workspace">
+          <div class="report-toolbar">
+            <label>
+              Отчет
+              <select data-report-select></select>
+            </label>
+            <button class="button primary" type="button" data-pin-report>Вывести на дашборд</button>
+          </div>
+          <div class="report-output" data-report-output></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="mail">
+      <div class="screen-head">
+        <div>
+          <p class="eyebrow">Импорт</p>
+          <h1>Лид из письма</h1>
+        </div>
+      </div>
+      <form class="panel single-form" data-mail-form>
+        <label>
+          Текст письма
+          <textarea name="emailText" rows="10" placeholder="From: Иван Петров &lt;ivan@example.com&gt;&#10;Subject: Хочу купить iPhone&#10;Компания: Петровы&#10;Телефон: +7 900 000-00-00"></textarea>
+        </label>
+        <button class="button primary" type="submit">Создать лид</button>
+        <p class="form-note" data-mail-note></p>
+      </form>
+    </section>
+  </main>
+
+  <dialog class="record-dialog" data-dialog>
+    <form method="dialog" class="dialog-card" data-dialog-form></form>
+  </dialog>
+</body>
+</html>
